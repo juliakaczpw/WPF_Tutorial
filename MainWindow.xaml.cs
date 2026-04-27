@@ -48,5 +48,10 @@ namespace wpf_tut
         {
             MessageBox.Show("Contact menager", "Pige 2026", MessageBoxButton.OK, MessageBoxImage.Information);
         }
+
+        private void Menu_Exit(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

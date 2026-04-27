@@ -6,6 +6,47 @@
         xmlns:local="clr-namespace:wpf_tut"
         mc:Ignorable="d"
         Title="Window" Height="600" Width="800" WindowStartupLocation="CenterScreen" MinHeight="500" MinWidth="500">
+
+    <Window.Resources>
+        <DataTemplate x:Key="ContactListItemTemplate" DataType="ListBoxItem">
+            <Grid HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                
+                <StackPanel Grid.Column="0" Orientation="Horizontal"
+                        HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                    <Label Content="{Binding Name}" FontSize="20" Padding="3,0,0,0"/>
+                    <Label Content="{Binding Surname}" FontSize="20" Padding="3,0,0,0"/>
+                </StackPanel>
+
+            
+                <Border Grid.Column="1" VerticalAlignment="Center"
+                    Width="50" Height="50" BorderBrush="Black" BorderThickness="1" 
+                    Margin="3" CornerRadius="25">
+                    <Border.Style>
+                        <Style TargetType="{x:Type Border}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Gender}" Value="Female">
+                                    <Setter Property="Background" Value="#FFB6C1"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Gender}" Value="Male">
+                                    <Setter Property="Background" Value="#ADD8E6"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                    <TextBlock Text="{Binding Gender}" 
+                           HorizontalAlignment="Center" 
+                           VerticalAlignment="Center"
+                           FontWeight="Bold"/>
+                </Border>
+            </Grid>
+        </DataTemplate>
+    </Window.Resources>
+ 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -17,6 +58,7 @@
                 <MenuItem Header="Import" IsEnabled="False"/>
                 <MenuItem Header="Export" IsEnabled="False"/>
                 <Separator/>
+                <MenuItem Header="Exit" Click="Menu_Exit"/>
             </MenuItem>
             <MenuItem Header="Contacts">
                 <MenuItem Header="Add Contacts" Click="Add_Contacts"/>
@@ -26,8 +68,10 @@
         </Menu>
 
         <TabControl Grid.Row="1">
-            <TabItem Header=" List">
-                <ListBox/>
+            <TabItem Header="List">
+                <ListBox ItemsSource="{Binding}"
+             ItemTemplate="{StaticResource ContactListItemTemplate}"
+             HorizontalContentAlignment="Stretch"/>
             </TabItem>
             <TabItem Header="Grid">
                 <DataGrid/>
