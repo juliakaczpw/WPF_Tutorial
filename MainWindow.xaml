@@ -45,6 +45,17 @@
                 </Border>
             </Grid>
         </DataTemplate>
+        
+        <Style x:Key="ContactListItemStyle" TargetType="ListBoxItem">
+            <Style.Triggers>
+                <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                    <Setter Property="Background" Value="#FFAFC5FF"/>
+                </Trigger>
+                <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                    <Setter Property="Background" Value="#FF75A1FF"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
  
     <Grid>
@@ -70,8 +81,10 @@
         <TabControl Grid.Row="1">
             <TabItem Header="List">
                 <ListBox ItemsSource="{Binding}"
-             ItemTemplate="{StaticResource ContactListItemTemplate}"
-             HorizontalContentAlignment="Stretch"/>
+         ItemTemplate="{StaticResource ContactListItemTemplate}"
+         HorizontalContentAlignment="Stretch"
+         ItemContainerStyle="{StaticResource ContactListItemStyle}"
+         AlternationCount="2"/>
             </TabItem>
             <TabItem Header="Grid">
                 <DataGrid/>
